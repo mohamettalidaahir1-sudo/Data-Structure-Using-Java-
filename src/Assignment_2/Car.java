@@ -19,12 +19,13 @@ public class Car {
         daily_Rate=45;
         is_Rent=false;
     }
-    Car(String p_Number, String car_model, double dailyRent, boolean isRent){
+    Car(String p_Number, String car_model, double dailyRent,boolean is_Rent){
         this.plate_Number=p_Number;
         this.car_Model=car_model;
         this.daily_Rate=dailyRent;
-        this.is_Rent=isRent;
+        totalCars++;
     }
+
 
     //Static Methods
     public static void displayCompany(){
@@ -59,16 +60,28 @@ public class Car {
     public void setDaily_Rate(double daily_Rate) {
         this.daily_Rate = daily_Rate;
     }
-    public void rent(){
-        if (!is_Rent){
-            System.out.println("This car already has been ranted");
-        }
-        else
+    // Rent
+
+    public void rent() {
+
+        if (is_Rent) {
+            System.out.println("This car is already rented");
+        } else {
+            is_Rent = true;
             System.out.println("Car rent has been successful");
+        }
     }
-    public void returnCar(){
-        is_Rent=true;
-        System.out.println("Car rent has beeen successful");
+
+    // Return Car
+
+    public void returnCar() {
+
+        if (is_Rent) {
+            is_Rent = false;
+            System.out.println("Car has been returned successfully");
+        } else {
+            System.out.println("This car is not currently rented");
+        }
     }
 
     public void displayCar(){
@@ -76,7 +89,7 @@ public class Car {
                 "Company Name: "+companyName+"\n" +
                 "Plate Number: "+plate_Number+"\n" +
                 "Car Model: "+car_Model+"\n" +
-                "Daily Rant: "+daily_Rate+"\n" +
+                "Daily Rant: $"+daily_Rate+"\n" +
                 "=======================================================");
         System.out.println();
     }
@@ -87,9 +100,17 @@ class TestCar{
     static void main() {
         Car car1=new Car("C1002","Hayundia",70,false);
         car1.rent();
+        System.out.println();
         car1.returnCar();
+        System.out.println();
         car1.displayCar();
-        Car car2=new Car("A1003","BMW",90,true);
-        car1.returnCar();
+        System.out.println("Car Model: "+car1.getCar_Model());
+        System.out.println();
+        System.out.println("Total Cars: "+Car.totalCars);
+
+        Car car2=new Car("C1002","Toyota",120,true);
+        car2.rent();
+        car2.returnCar();
+        car2.displayCar();
     }
 }
